@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @snippet.title %>
+</p>
+
+<p>
+  <b>Content:</b><br/>
+  <div class="details">
+
+  <%= 
+	require 'rubygems'
+	require 'syntax/convertors/html'
+	c = Syntax::Convertors::HTML.for_syntax @snippet.language
+        highlighted = c.convert(@snippet.content,false)
+	highlighted.sub!("/^<pre>§", "<pre class=\"code\">\n")
+	highlighted
+  %> 
+  
+  </div>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%= @snippet.language %>
+</p>
+
+
+<%= link_to 'Edit', edit_snippet_path(@snippet) %> |
+<%= link_to 'Back', snippets_path %>
